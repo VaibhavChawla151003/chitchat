@@ -116,6 +116,41 @@ app.get("/getrequests/:userId", async (req, res) => {
     }
 })
 
+app.get("/getUser/:userId", async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const user = await User.findById(userId);
+
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(400);
+            throw new Error("User not found");
+        }
+    } catch (error) {
+        console.log("Error", error)
+    }
+})
+
+app.post("/deleteMessages", async (req, res) => {
+    try {
+      const { messages } = req.body;
+  
+      if (!Array.isArray(messages) || messages.length === 0) {
+        return res.status(400).json({ message: "invalid req body!" });
+      }
+  
+      await Message.deleteMany({ _id: { $in: messages } });
+  
+      res.json({ message: "Message deleted successfully" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server" });
+    }
+  });
+
+  
 app.post("/acceptrequest", async (req, res) => {
     try {
         const { userId, requestId } = req.body;

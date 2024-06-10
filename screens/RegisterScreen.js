@@ -60,7 +60,7 @@ const RegisterScreen = () => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text style={{fontSize: 20, fontWeight: '500'}}>
+            <Text style={{fontSize: 20, fontWeight: '800'}}>
               Set up your profile
             </Text>
 

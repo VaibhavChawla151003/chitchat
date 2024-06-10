@@ -30,7 +30,7 @@ const PeopleScreen = () => {
           style={{
             textAlign: 'center',
             fontSize: 15,
-            fontWeight: '500',
+            fontWeight: '800',
             marginTop: 12,
           }}>
           People using ChitChat

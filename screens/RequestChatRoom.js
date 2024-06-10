@@ -6,6 +6,7 @@ import {
     ScrollView,
     TextInput,
     Pressable,
+    TouchableOpacity,
     Alert,
 } from 'react-native';
 import React, { useContext, useLayoutEffect, useState } from 'react';
@@ -27,9 +28,11 @@ const RequestChatRoom = () => {
             headerTitle: '',
             headerLeft: () => (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                    <Ionicons name="arrow-back" size={24} color="black" />
+                      <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Ionicons name="arrow-back" size={24} color="black" />
+                    </TouchableOpacity>
                     <View>
-                        <Text>{route?.params?.name}</Text>
+                        <Text style={{ color: 'black' }}>{route?.params?.name}</Text>
                     </View>
                 </View>
             ),

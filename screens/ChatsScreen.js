@@ -17,12 +17,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import Chats from '../components/Chats.js';
+import { User } from '../api/models/user.js';
 
 const ChatsScreen = () => {
   const [options, setOptions] = useState(["Chats"]);
   const [chats, setChats] = useState([]);
   const [requests, setRequests] = useState([]);
   const navigation = useNavigation()
+  const [profileImage, setProfileImage] = useState('');
   const { token, userId, setUserId, setToken } = useContext(AuthContext)
 
   const chooseOption = (option) => {
@@ -44,6 +46,9 @@ const ChatsScreen = () => {
        const decodedToken = jwtDecode(token)
        const userId = decodedToken.userId
        setUserId(userId)
+
+
+       console.log(profileImage)
        setToken(token)
      }
 
@@ -59,6 +64,16 @@ const ChatsScreen = () => {
       console.log('Error', error);
     }
   };
+ 
+
+  const getImage = async() =>{
+    try {
+      const response = await axios.get(`http://192.168.1.4:8000/getUser/${userId}`);
+      setProfileImage(response.data.image)
+    } catch (error) {
+      console.log('Error', error);
+    }
+  }
 
   const getrequests = async() =>{
     try {
@@ -102,6 +117,7 @@ const ChatsScreen = () => {
   useEffect(()=>{
     if(userId){
       getrequests()
+      getImage()
     }
   },[userId])
   
@@ -120,6 +136,8 @@ const ChatsScreen = () => {
       throw error
     }
   }
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View
@@ -129,41 +147,43 @@ const ChatsScreen = () => {
           alignItems: 'center',
           gap: 10,
           justifyContent: 'space-between',
+          backgroundColor:"#303030"
         }}>
         <Pressable onPress={logout}>
           <Image
             style={{ width: 30, height: 30, borderRadius: 15 }}
             source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCJoVnuKWv43i_Tti7OWhbBsfeyYDCi7KjYxcyXP--Qg&s',
+              uri: profileImage || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCJoVnuKWv43i_Tti7OWhbBsfeyYDCi7KjYxcyXP--Qg&s',
             }}
           />
         </Pressable>
 
-        <Text style={{ fontSize: 15, fontWeight: '500', color: 'black' }}>Chats</Text>
+        <Text style={{ fontSize: 15, fontWeight: '500', color: 'white' }}>Chats</Text>
 
         <View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-            <AntDesign name="camerao" size={26} color="black" />
+            <AntDesign name="camerao" size={26} color="white" />
             <MaterialIcons
               onPress={() => navigation.navigate('People')}
               name="person-outline"
               size={26}
-              color="black"
+              color="white"
             />
           </View>
         </View>
       </View>
 
-      <View style={{ padding: 10 }}>
+      <View style={{ padding: 10}}>
         <Pressable
           onPress={() => chooseOption('Chats')}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
+
           }}>
-          <View>
-            <Text >Chats</Text>
+          <View >
+            <Text style={{color:"black"}}>Chats</Text>
           </View>
           <Entypo name="chevron-small-down" size={26} color="black" />
         </Pressable>
@@ -203,7 +223,7 @@ const ChatsScreen = () => {
             justifyContent: 'space-between',
           }}>
           <View>
-            <Text>Requests</Text>
+            <Text style={{color:"black"}}>Requests</Text>
           </View>
           <Entypo name="chevron-small-down" size={26} color="black" />
         </Pressable>
@@ -211,7 +231,7 @@ const ChatsScreen = () => {
         <View style={{ marginVertical: 12 }}>
           {options?.includes('Requests') && (
             <View>
-              <Text style={{ fontSize: 15, fontWeight: '500' }}>
+              <Text style={{ fontSize: 15, fontWeight: '500',margin:"auto",marginTop:100}}>
                 Checkout all the requests
               </Text>
 

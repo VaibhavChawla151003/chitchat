@@ -58,7 +58,7 @@ const LoginScreen = () => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text style={{fontSize: 20, fontWeight: '500'}}>
+            <Text style={{fontSize: 20, fontWeight: '800'}}>
               Login to your account
             </Text>
           </View>
@@ -159,7 +159,7 @@ const LoginScreen = () => {
             <Image
               style={{width: 140, height: 170}}
               source={{
-                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCJoVnuKWv43i_Tti7OWhbBsfeyYDCi7KjYxcyXP--Qg&s',
+                uri: 'https://play-lh.googleusercontent.com/dT8U6UdmpRZecd4Hh53blT8v7JJnJp7UBdcG54B8KM87ZAsV_LmWSArS0aoeMlvadA',
               }}
             />
           </View>

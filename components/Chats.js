@@ -53,7 +53,7 @@ const Chats = ({ item }) => {
                 </Pressable>
 
                 <View>
-                    <Text style={{ fontSize: 15, fontWeight: '500' }}>{item?.name}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: '700'}}>{item?.name}</Text>
                     <Text style={{ marginTop: 4, color: 'gray' }}>
                         {lastMessage
                             ? lastMessage.message
